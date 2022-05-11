@@ -20,4 +20,8 @@ export default class AppStore {
       return res.data
     })
 	}
+
+	createApp = () => {
+		this.apps["new"] = new App(this.rootStore)
+	}
 }

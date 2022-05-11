@@ -8,14 +8,16 @@ const App = observer(({...props}) => {
   const app = props.app;
   return (
     <div>
+      <hr/>
       <button onClick={app.toggleEdit}>{app.editing ? "View" : "Edit"}</button>
       {
         app.editing ? (
           <div>
-            Name: <input value={app.name} onChange={app.updateName}/>
+            Name: <input defaultValue={app.name} onChange={app.updateName}/>
             <br/>
-            Description: <textarea value={app.description} onChange={app.updateDescription}/>
+            Description: <textarea defaultValue={app.description} onChange={app.updateDescription}/>
             <button onClick={app.save}>Save</button>
+            <button onClick={app.delete}>Delete</button>
           </div>
         ) : (
         <div>
@@ -34,6 +36,7 @@ const Apps = observer(({...props}) => {
   return (
     <div>
       <h2>Apps test</h2>
+      <button onClick={rootStore.appStore.createApp}>New</button>
       {
         _.map(rootStore.appStore.apps, (app) => {
           return <App key={app.id} app={app}/>

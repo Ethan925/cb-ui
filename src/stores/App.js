@@ -16,11 +16,12 @@ export default class App {
     });
     this.rootStore = rootStore;
     this.isNew = !_.size(existingApp);
+    this.editing = this.isNew
     this.updateFromDb(existingApp);
   }
 
   updateFromDb = (existingApp) => {
-    this.id = existingApp.id;
+    this.id = existingApp.id || "new";
     this.name = existingApp.name;
     this.description = existingApp.description;
     this.owner = existingApp.owner;
@@ -43,15 +44,25 @@ export default class App {
     saveMethod().then((res) => {
       this.updateFromDb(res.data);
       this.editing = false;
+      this.rootStore.appStore.apps[this.id] = this
     })
   }
 
   create = () => {
-    return this.rootStore.API.post("/api/v1/app/", this.serializedData)
+    return this.rootStore.API.post("/api/v1/app/", this.serializedData).then((res) => {
+      delete this.rootStore.appStore.apps["new"]
+      return res
+    })
   }
 
   update = () => {
     return this.rootStore.API.put(`/api/v1/app/${this.id}/`, this.serializedData)
+  }
+
+  delete = () => {
+    return this.rootStore.API.delete(`/api/v1/app/${this.id}/`).then(() => {
+      delete this.rootStore.appStore.apps[this.id]
+    })
   }
 
   get serializedData() {
@@ -59,7 +70,8 @@ export default class App {
       "name": this.name,
       "description": this.description,
       // TODO make sure API is locked down so you can only access your own apps
-      "owner": this.owner,
+      // and pull down info about the current user so it can be used here
+      "owner": this.owner || 1,
     }
   }
 }
