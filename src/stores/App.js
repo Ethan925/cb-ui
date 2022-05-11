@@ -7,6 +7,7 @@ export default class App {
   name = ""
   description = ""
   owner = ""
+  plan = ""
   isNew = true;
   editing = false;
 
@@ -25,6 +26,7 @@ export default class App {
     this.name = existingApp.name;
     this.description = existingApp.description;
     this.owner = existingApp.owner;
+    this.plan = _.get(existingApp, "current_subscription.plan")
   };
 
   toggleEdit = () => {
@@ -39,9 +41,29 @@ export default class App {
     this.description = event.target.value;
   }
 
+  setSubscription = (planId) => {
+    return this.rootStore.API.post("/api/v1/subscription/", {
+      app: this.id,
+      plan: planId
+    }).then((res) => {
+      this.plan = res.data.plan;
+    })
+  }
+
+  get serializedSubscriptionData() {
+    return {
+      app: this.id,
+      plan: this.plan
+    }
+  }
+
+  get hydratedPlan() {
+    return _.get(this.rootStore.planStore.plans, this.plan);
+  }
+
   save = () => {
     const saveMethod = this.isNew ? this.create : this.update;
-    saveMethod().then((res) => {
+    return saveMethod().then((res) => {
       this.updateFromDb(res.data);
       this.editing = false;
     })
@@ -75,4 +97,5 @@ export default class App {
       "owner": this.owner || 1,
     }
   }
+
 }

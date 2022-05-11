@@ -1,11 +1,23 @@
 import React from "react";
-import AppStore from "../stores/AppStore";
 import {RootStoreContext} from "../index";
 import { observer } from "mobx-react";
 import _ from "lodash";
 
+const PlanButton = observer(({...props}) => {
+  const plan = props.plan;
+  return (
+    <button
+      style={{fontWeight: props.isSelected ? "bold" : "normal"}}
+      onClick={() => props.select(plan.id)}
+    >
+      {plan.name} - {plan.price}
+    </button>
+  )
+});
+
 const App = observer(({...props}) => {
   const app = props.app;
+  const rootStore = React.useContext(RootStoreContext);
   return (
     <div>
       <hr/>
@@ -16,12 +28,32 @@ const App = observer(({...props}) => {
             Name: <input defaultValue={app.name} onChange={app.updateName}/>
             <br/>
             Description: <textarea defaultValue={app.description} onChange={app.updateDescription}/>
+            <br/>
             <button onClick={app.save}>Save</button>
+            <br/>
+            {
+              !app.isNew && (
+                <React.Fragment>
+                  <b>Plan</b>
+                  {
+                    _.map(rootStore.planStore.sortedPlans, (plan) => {
+                      return <PlanButton
+                                key={plan.id}
+                                plan={plan}
+                                isSelected={app.plan == plan.id}
+                                select={app.setSubscription}
+                              />
+                    })
+                  }
+                </React.Fragment>
+              )
+            }
           </div>
         ) : (
         <div>
           <button onClick={app.delete}>Delete</button>
           <h3>{app.name}</h3>
+          <b>{_.get(app, "hydratedPlan.name")}</b>
           <p>{app.description}</p>
         </div>
         )
