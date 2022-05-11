@@ -44,13 +44,14 @@ export default class App {
     saveMethod().then((res) => {
       this.updateFromDb(res.data);
       this.editing = false;
-      this.rootStore.appStore.apps[this.id] = this
     })
   }
 
   create = () => {
     return this.rootStore.API.post("/api/v1/app/", this.serializedData).then((res) => {
       delete this.rootStore.appStore.apps["new"]
+      this.isNew = false;
+      this.rootStore.appStore.apps[this.id] = this
       return res
     })
   }

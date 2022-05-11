@@ -17,10 +17,10 @@ const App = observer(({...props}) => {
             <br/>
             Description: <textarea defaultValue={app.description} onChange={app.updateDescription}/>
             <button onClick={app.save}>Save</button>
-            <button onClick={app.delete}>Delete</button>
           </div>
         ) : (
         <div>
+          <button onClick={app.delete}>Delete</button>
           <h3>{app.name}</h3>
           <p>{app.description}</p>
         </div>

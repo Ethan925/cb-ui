@@ -4,24 +4,23 @@ import _ from "lodash";
 import axios from "axios";
 
 export default class AppStore {
-	apps = {};
-	selectedAppId = "";
+  apps = {};
 
-	constructor(rootStore) {
-		makeAutoObservable(this, { rootStore: false })
+  constructor(rootStore) {
+    makeAutoObservable(this, { rootStore: false })
     this.rootStore = rootStore
-	}
+  }
 
-	fetchApps = () => {
-		axios.get("/api/v1/app/").then((res) => {
+  fetchApps = () => {
+    axios.get("/api/v1/app/").then((res) => {
       _.forEach(res.data, (app) => {
-      	this.apps[app.id] = new App(this.rootStore, app);
+        this.apps[app.id] = new App(this.rootStore, app);
       })
       return res.data
     })
-	}
+  }
 
-	createApp = () => {
-		this.apps["new"] = new App(this.rootStore)
-	}
+  createApp = () => {
+    this.apps["new"] = new App(this.rootStore)
+  }
 }
