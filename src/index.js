@@ -9,10 +9,20 @@ import App from "./App";
 import Apps from "./routes/apps";
 import Plans from "./routes/plans";
 import AppStore from "./stores/AppStore";
+import axios from "axios"
+import Cookies from "js-cookie";
 
 class RootStore {
     constructor() {
       this.appStore = new AppStore(this);
+      this.API = axios.create({
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-CSRFToken": Cookies.get("csrftoken"),
+        },
+        withCredentials: true,
+      });
     }
 
     bootstrap = () => {

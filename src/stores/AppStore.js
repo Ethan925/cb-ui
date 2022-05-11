@@ -15,7 +15,7 @@ export default class AppStore {
 	fetchApps = () => {
 		axios.get("/api/v1/app/").then((res) => {
       _.forEach(res.data, (app) => {
-      	this.apps[app.id] = app;
+      	this.apps[app.id] = new App(this.rootStore, app);
       })
       return res.data
     })

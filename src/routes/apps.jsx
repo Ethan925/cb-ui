@@ -8,8 +8,22 @@ const App = observer(({...props}) => {
   const app = props.app;
   return (
     <div>
-      <h3>{app.name}</h3>
-      <p>{app.description}</p>
+      <button onClick={app.toggleEdit}>{app.editing ? "View" : "Edit"}</button>
+      {
+        app.editing ? (
+          <div>
+            Name: <input value={app.name} onChange={app.updateName}/>
+            <br/>
+            Description: <textarea value={app.description} onChange={app.updateDescription}/>
+            <button onClick={app.save}>Save</button>
+          </div>
+        ) : (
+        <div>
+          <h3>{app.name}</h3>
+          <p>{app.description}</p>
+        </div>
+        )
+      }
     </div>
   )
 });
