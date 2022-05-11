@@ -11,7 +11,7 @@ import CardContent from '@mui/material/CardContent';
 const Plan = observer(({...props}) => {
   const plan = props.plan;
   return (
-    <Card sx={{ width: 275, marginRight: 5 }}>
+    <Card sx={{ width: 275, maxHeight: 500, marginRight: 5 }}>
       <CardHeader title={plan.name}/>
       <CardContent>
         <b>${plan.price}</b>
