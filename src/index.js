@@ -9,12 +9,14 @@ import App from "./App";
 import Apps from "./routes/apps";
 import Plans from "./routes/plans";
 import AppStore from "./stores/AppStore";
+import PlanStore from "./stores/PlanStore";
 import axios from "axios"
 import Cookies from "js-cookie";
 
 class RootStore {
     constructor() {
       this.appStore = new AppStore(this);
+      this.planStore = new PlanStore(this);
       this.API = axios.create({
         headers: {
           Accept: "application/json",
@@ -27,7 +29,8 @@ class RootStore {
 
     bootstrap = () => {
       return Promise.all([
-        this.appStore.fetchApps()
+        this.appStore.fetchApps(),
+        this.planStore.fetchPlans(),
       ])
     }
 }
