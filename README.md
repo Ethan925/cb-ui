@@ -1,8 +1,27 @@
+# Crowdbotics UI Demo
+
 This is a very lite UI that I put together to interact with the Crowdbotics demo API that I worked on. 
 
 There are many things that this project lacks (such as proper user auth). My intention was for this to serve as some sample frontend code, and it was also helpful for me to test the API that I was working on. 
 
 Regarding the missing user auth --  I currently have to log in via a browser window on my localhost API, and then I can use that session in this project. With more time, I would finish that part of this app so that it works end-to-end.
+
+Some of the tech in this app:
+- React
+- MobX
+- React Router
+- MaterialUI
+- lodash
+
+<img width="1616" alt="Screen Shot 2022-05-11 at 3 54 21 PM" src="https://user-images.githubusercontent.com/7635143/167934539-75743e75-1f63-4248-8407-f6430c50be44.png">
+
+<img width="1616" alt="Screen Shot 2022-05-11 at 3 53 53 PM" src="https://user-images.githubusercontent.com/7635143/167934409-b2b95b07-7e54-4e63-a110-6e3c69f441c6.png">
+
+<img width="1617" alt="Screen Shot 2022-05-11 at 3 55 07 PM" src="https://user-images.githubusercontent.com/7635143/167934893-c62174f9-6bc7-4f4c-8a86-5160eea80ad4.png">
+
+<img width="1620" alt="Screen Shot 2022-05-11 at 3 55 36 PM" src="https://user-images.githubusercontent.com/7635143/167934927-fed8a13b-1779-4af5-bf13-9605abdba8b3.png">
+
+<img width="1619" alt="Screen Shot 2022-05-11 at 3 54 47 PM" src="https://user-images.githubusercontent.com/7635143/167934869-38d26907-a05b-4d6a-bf4d-3f7a2afc261d.png">
 
 =============================
 
