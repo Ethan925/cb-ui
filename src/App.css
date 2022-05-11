@@ -5,7 +5,10 @@ html {
 .App {
   text-align: center;
 }
-
+.App-logo {
+  width: 200px;
+  margin-bottom: -5px;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

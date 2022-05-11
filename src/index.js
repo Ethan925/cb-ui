@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {
@@ -12,7 +13,9 @@ import AppStore from "./stores/AppStore";
 import PlanStore from "./stores/PlanStore";
 import axios from "axios"
 import Cookies from "js-cookie";
-
+import AppBar from '@mui/material/AppBar';
+import Typography from '@mui/material/Typography';
+import logo from './logo.png';
 class RootStore {
     constructor() {
       this.appStore = new AppStore(this);
@@ -46,12 +49,29 @@ const RootStoreProvider = ({ children, store }) => {
 
 rootStore.bootstrap();
 
+// TODO remove
+window.rootStore = rootStore
+
 const root = ReactDOM.createRoot(
   document.getElementById("root")
 );
 root.render(
   <RootStoreProvider store={rootStore}>
     <BrowserRouter>
+      <AppBar
+        position="static"
+        style={{
+          background: "#1e0a45",
+          padding: 15,
+          margin: -10,
+          width: "100vw"
+        }}
+      >
+        <Link to="/">
+          <img src={logo} className="App-logo" alt="logo" />
+        </Link>
+
+      </AppBar>
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="apps" element={<Apps />} />

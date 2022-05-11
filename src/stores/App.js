@@ -73,7 +73,7 @@ export default class App {
     return this.rootStore.API.post("/api/v1/app/", this.serializedData).then((res) => {
       delete this.rootStore.appStore.apps["new"]
       this.isNew = false;
-      this.rootStore.appStore.apps[this.id] = this
+      this.rootStore.appStore.apps[res.data.id] = this
       return res
     })
   }

@@ -5,7 +5,7 @@ import axios from "axios";
 
 export default class AppStore {
   apps = {};
-
+  selectedApp = "";
   constructor(rootStore) {
     makeAutoObservable(this, { rootStore: false })
     this.rootStore = rootStore
@@ -22,5 +22,14 @@ export default class AppStore {
 
   createApp = () => {
     this.apps["new"] = new App(this.rootStore)
+    this.selectedApp = "new"
+  }
+
+  selectApp = (selectedApp) => {
+    this.selectedApp = selectedApp;
+  }
+
+  get hydratedSelectedApp() {
+    return _.get(this.apps, this.selectedApp, {})
   }
 }
