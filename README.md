@@ -1,3 +1,11 @@
+This is a very lite UI that I put together to interact with the Crowdbotics demo API that I worked on. 
+
+There are many things that this project lacks (such as proper user auth). My intention was for this to serve as some sample frontend code, and it was also helpful for me to test the API that I was working on. 
+
+Regarding the missing user auth --  I currently have to log in via a browser window on my localhost API, and then I can use that session in this project. With more time, I would finish that part of this app so that it works end-to-end.
+
+=============================
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
