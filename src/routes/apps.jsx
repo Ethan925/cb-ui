@@ -2,7 +2,12 @@ import React from "react";
 import {RootStoreContext} from "../index";
 import { observer } from "mobx-react";
 import _ from "lodash";
-
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import IconButton from '@mui/material/IconButton';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 const PlanButton = observer(({...props}) => {
   const plan = props.plan;
   return (
@@ -19,9 +24,8 @@ const App = observer(({...props}) => {
   const app = props.app;
   const rootStore = React.useContext(RootStoreContext);
   return (
-    <div>
-      <hr/>
-      <button onClick={app.toggleEdit}>{app.editing ? "View" : "Edit"}</button>
+    <div className="app-card">
+      {/*<button onClick={app.toggleEdit}>{app.editing ? "View" : "Edit"}</button>*/}
       {
         app.editing ? (
           <div>
@@ -50,12 +54,24 @@ const App = observer(({...props}) => {
             }
           </div>
         ) : (
-        <div>
-          <button onClick={app.delete}>Delete</button>
-          <h3>{app.name}</h3>
-          <b>{_.get(app, "hydratedPlan.name")}</b>
-          <p>{app.description}</p>
-        </div>
+        <Card sx={{ width: 275 }}>
+          <CardHeader
+            title={app.name}
+            action={
+              <IconButton aria-label="View" onClick={app.view}>
+                <VisibilityIcon />
+              </IconButton>
+            }
+          />
+          <CardContent>
+            <b>{_.get(app, "hydratedPlan.name")}</b>
+            <p>{app.description}</p>
+          </CardContent>
+          <CardActions>
+            <button onClick={app.delete}>Delete</button>
+            <button onClick={app.toggleEdit}>{app.editing ? "View" : "Edit"}</button>
+          </CardActions>
+        </Card>
         )
       }
     </div>
@@ -67,13 +83,15 @@ const Apps = observer(({...props}) => {
 
   return (
     <div>
-      <h2>Apps test</h2>
+      <h2>Apps</h2>
       <button onClick={rootStore.appStore.createApp}>New</button>
-      {
-        _.map(rootStore.appStore.apps, (app) => {
-          return <App key={app.id} app={app}/>
-        })
-      }
+      <div className="app-wrapper">
+        {
+          _.map(rootStore.appStore.apps, (app) => {
+            return <App key={app.id} app={app}/>
+          })
+        }
+      </div>
     </div>
   );
 });

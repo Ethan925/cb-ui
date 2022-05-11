@@ -98,4 +98,7 @@ export default class App {
     }
   }
 
+  view = () => {
+    alert(`Open a new tab to view app: ${this.name}`)
+  }
 }
