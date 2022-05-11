@@ -32,4 +32,10 @@ export default class AppStore {
   get hydratedSelectedApp() {
     return _.get(this.apps, this.selectedApp, {})
   }
+
+  get appsToRender() {
+    return _.filter(this.apps, (app) => {
+      return !app.isNew
+    })
+  }
 }

@@ -165,7 +165,7 @@ const Apps = observer(({...props}) => {
       </h2>
       <div className="app-wrapper">
         {
-          _.map(rootStore.appStore.apps, (app) => {
+          _.map(rootStore.appStore.appsToRender, (app) => {
             return <App
                     key={app.id}
                     app={app}

@@ -4,17 +4,20 @@ import {RootStoreContext} from "../index";
 import { observer } from "mobx-react";
 import _ from "lodash";
 
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+
 const Plan = observer(({...props}) => {
   const plan = props.plan;
   return (
-    <div>
-      <hr/>
-      <div>
-        <h3>{plan.name}</h3>
+    <Card sx={{ width: 275, marginRight: 5 }}>
+      <CardHeader title={plan.name}/>
+      <CardContent>
         <b>${plan.price}</b>
         <p>{plan.description}</p>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 });
 
@@ -24,11 +27,19 @@ const Plans = observer(({...props}) => {
   return (
     <div>
       <h2>Plans</h2>
-      {
-        _.map(rootStore.planStore.sortedPlans, (plan) => {
-          return <Plan key={plan.id} plan={plan}/>
-        })
-      }
+      <div
+        className="app-wrapper"
+        style={{
+        display: "flex",
+        justifyContent: "center"
+      }}>
+
+        {
+          _.map(rootStore.planStore.sortedPlans, (plan) => {
+            return <Plan key={plan.id} plan={plan}/>
+          })
+        }
+      </div>
     </div>
   );
 });
